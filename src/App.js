@@ -9,6 +9,7 @@ import Error from './pages/Error';
 import {Route, Switch, Router} from 'react-router-dom';
 // Components
 import Navbar from './components/Navbar';
+import { RoomProvider } from "./context";
 
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
     // exact =>> mean the url is exactlly what typen mean www.react.com/home -- www.react.com/home/room if you not using Exact - router will render to component - home and room 
     // using switch to all to us to Use route with no path to make a error page
     <>
-    <Navbar/>
+    <RoomProvider>
+        <Navbar/>
+    </RoomProvider>
     <Switch>
       <Route exact path='/' component={Home}/>
       <Route exact path='/rooms' component={Rooms}/>
