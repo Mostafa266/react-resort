@@ -10,7 +10,6 @@ class RoomProvider extends Component {
         featuredRooms:[], // all rooms has a featured value is true,
         loading:true //to show loading div after load the data request
     };
-    
     componentDidMount(){
         let rooms = this.formatData(items)
         let featuredRooms = rooms.filter(room => room.featured === true)
@@ -33,17 +32,23 @@ class RoomProvider extends Component {
         return tempItem
     }
 
+    getRoom = slug => {
+        const tempRooms = [...this.state.rooms];
+        const room = tempRooms.find(room => room.slug === slug );
+        console.log(room)
+        return room;
+    }
 
     render() {
         return (
             <div>
                 {/* <RoomContext.Provider value={this.state}>  the same thiing if use speread operator*/}
-                <RoomContext.Provider value={{...this.state}}>
+                <RoomContext.Provider value={{...this.state,getRoom:this.getRoom}}>
                 {this.props.children}
                 </RoomContext.Provider>
             </div>
         )
     }
 }
-const RoomConsumer = RoomContext.children;
+const RoomConsumer = RoomContext.Consumer;
 export {RoomProvider,RoomContext,RoomConsumer}
